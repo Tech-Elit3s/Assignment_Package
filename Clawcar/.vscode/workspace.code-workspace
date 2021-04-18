@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Clawcar",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4 }",
+		"editor.defaultFormatter": "ms-vscode.cpptools",
+		"editor.formatOnSave": true
+	}
+}
