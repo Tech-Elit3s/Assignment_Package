@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 void setup() {
+<<<<<<< HEAD
   pinMode(9, INPUT);  // radio receiver channel 1 
   pinMode(10, INPUT); // radio receiver channel 2
   pinMode(11, INPUT); // radio receiver channel 3 
@@ -22,6 +23,14 @@ void loop() {
   Serial.print(values[3]);
   Serial.print(" - ");
   Serial.println(values[4]);
+=======
+    // put your setup code here, to run once:
+}
+
+void loop() {
+    // put your main code here, to run repeatedly:
+    double* values = readValues();
+>>>>>>> 6df842452b822c5a341244223c9d5424ed62c84a
 }
 
 void controlArm(double* values) {}
