@@ -27,6 +27,8 @@ void setup() {
   servo1.write(position1);
   delay(15);
 
+  setupCar();
+
   Serial.begin(9600);
 }
 
@@ -65,12 +67,9 @@ void loop() {
   // functionality is turned on.
   if (values[4] > 1500) {
     controlArm(values);
+  } else {
+    controlCar(values);
   }
-  // Else the robot car functionality
-  // is turned on
-  //   else{
-  // controlCar(values);
-  //   }
 
   delete[] values;
 }
