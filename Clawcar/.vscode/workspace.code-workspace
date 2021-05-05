@@ -6,9 +6,10 @@
 		}
 	],
 	"settings": {
-		"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4 }",
+		"C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 2 }",
 		"editor.defaultFormatter": "ms-vscode.cpptools",
 		"editor.formatOnSave": true,
-		"editor.detectIndentation": false
+        "editor.detectIndentation": false,
+        "editor.tabSize": 2
 	}
 }
