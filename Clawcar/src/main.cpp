@@ -1,8 +1,16 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+const double driveSpeed = 45;
+const double turnSpeed = 45;
+
 int position1;
 Servo servo1;
+
+Servo topLeftESC;
+Servo topRightESC;
+Servo bottomLeftESC;
+Servo bottomRightESC;
 
 void setup() {
   // declares radio receiver channel pins
@@ -20,6 +28,20 @@ void setup() {
   delay(15);
 
   Serial.begin(9600);
+}
+
+// TODO: set correct pins
+// Attaches pin and set to middle
+void setupCar() {
+  topLeftESC.attach(10);
+  topRightESC.attach(11);
+  bottomLeftESC.attach(12);
+  bottomRightESC.attach(13);
+
+  topLeftESC.write(90);
+  topRightESC.write(90);
+  bottomLeftESC.write(90);
+  bottomRightESC.write(90);
 }
 
 void loop() {
@@ -81,7 +103,31 @@ void controlArm(double* values) {
     delay(15);
   }
 }
-void controlCar(double* values) {}
+
+// TODO: Handle range of values correctly for input
+// Select correct values
+void controlCar(double* values) {
+  double turnValue = values[0];
+  double forwardValue = values[1];
+
+  double leftSideSpeed = 0;
+  double rightSideSpeed = 0;
+
+  // Base speed for both sides is just the drive speed multiplied by forward
+  // value
+  leftSideSpeed = forwardValue * driveSpeed;
+  rightSideSpeed = forwardValue * driveSpeed;
+
+  leftSideSpeed += turnValue * turnSpeed;
+  rightSideSpeed -= turnValue * turnSpeed;
+
+  // Write the speed values to the ESCs. 90 is added as this is the 'center'
+  // point
+  topLeftESC.write(90 + leftSideSpeed);
+  bottomLeftESC.write(90 + leftSideSpeed);
+  topRightESC.write(90 + rightSideSpeed);
+  bottomRightESC.write(90 + rightSideSpeed);
+}
 
 double* readValues() {
   double* channelValues = new double[5];
