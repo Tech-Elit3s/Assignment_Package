@@ -19,4 +19,10 @@ tools and libraries to make it all possible. <br>
 <em>*Platform IO.</em> Helps with providing extended functionalities when working with Arduino.<br>
 <em>*Git.</em> This is mainly used for the version control of the files.<br>
 <em>*Third party libs.</em> Any additional libraries which team members may have used to help with the project. <br>
+<br>
+## Links to tools and libraries used:
+<em>*Visual Studio code:</em> https://code.visualstudio.com/ <br>
+<em>*Arduino IDE:</em> https://www.arduino.cc/en/software </br>
+<em>*Platform IO: </em> https://platformio.org/ </br>
+<em>*Git: </em> https://git-scm.com/downloads </br>
 
