@@ -1,13 +1,13 @@
 # Tech Elite: Project DIY
 
-The following files in this repository is the very
-code that is there which makes the claw movement possible. 
-Please note that this project uses 100% open source 
-tools and libraries to make it all possible.
+The following files in this repository is the very code <br>
+that is there which makes the claw movement possible. <br> 
+Please note that this project uses 100% open source <br> 
+tools and libraries to make it all possible. <br>
 
-## Tools used:
-*Visual Studio code
-*Arduino IDE
-*Platform IO
-*git
-*third party libs
+## Tools used: <br>
+*Visual Studio code <br>
+*Arduino IDE <br>
+*Platform IO <br>
+*git <br>
+*third party libs <br>
