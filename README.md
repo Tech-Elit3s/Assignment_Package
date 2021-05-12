@@ -1,5 +1,7 @@
 # Tech Elite: Project DIY
 
+![company logo](TechElitesLogo.png)
+
 The following files in this repository is the very code <br>
 that is there which makes the claw movement possible. <br> 
 Please note that this project uses 100% open source <br> 
