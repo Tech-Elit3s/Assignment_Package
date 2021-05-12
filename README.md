@@ -14,9 +14,9 @@ tools and libraries to make it all possible. <br>
 </p>
 
 ## Tools used: <br>
-*Visual Studio code. The teams main source code editor and debugger.<br>
-*Arduino IDE. It's needed even if we have Visual Studio Code installed.<br>
-*Platform IO. Helps with providing extended functionalities when working with Arduino.<br>
-*Git. This is mainly used for the version control of the files.<br>
-*Third party libs. Any additional libraries which team members may have used to help with the project. <br>
+<em>*Visual Studio code.</em> The teams main source code editor and debugger.<br>
+<em>*Arduino IDE.</em> It's needed even if we have Visual Studio Code installed.<br>
+<em>*Platform IO.</em> Helps with providing extended functionalities when working with Arduino.<br>
+<em>*Git.</em> This is mainly used for the version control of the files.<br>
+<em>*Third party libs.</em> Any additional libraries which team members may have used to help with the project. <br>
 
