@@ -6,9 +6,13 @@
 
 const double driveSpeed = 0.2;
 const double turnSpeed = 0.2;
-
-int position1;
-Servo servo1;
+const int servoSpeed = 5;
+int baseServoPosition;
+int elbowPosition;
+int clawPosition;
+Servo baseServo;
+Servo elbowServo;
+Servo clawServo;
 
 Servo topLeftESC;
 Servo topRightESC;
@@ -26,21 +30,12 @@ void setup() {
   pinMode(12, INPUT);
   pinMode(13, INPUT);
 
-  // Attaches the servo mounted to the lid to pin and
-  // positions it at the start up position.
-  servo1.attach(3);
-  position1 = 90;
-  servo1.write(position1);
-  delay(15);
-
+  setupArm();
   setupCar();
 
   delay(ESC_ARM_TIME);
-
-  Serial.begin(9600);
 }
 
-// TODO: set correct pins
 // Attaches pin and set to middle
 void setupCar() {
   topLeftESC.attach(7);
@@ -53,22 +48,26 @@ void setupCar() {
   bottomLeftESC.writeMicroseconds(ESC_ARM_SIGNAL);
   bottomRightESC.writeMicroseconds(ESC_ARM_SIGNAL);
 }
+// Attaches pins and sets arm starting position
+void setupArm(){
+  elbowServo.attach(2);
+  baseServo.attach(3);
+  clawServo.attach(4);
+
+  elbowPosition = 180;
+  baseServoPosition = 120;
+  clawPosition = 180;
+
+  baseServo.write(baseServoPosition);
+  elbowServo.write(elbowPosition);
+  clawServo.write(clawPosition);
+  delay(15);
+}
 
 void loop() {
   // Reads radio input signals assigns values
   // to variable
   int* values = readValues();
-
-  // Prints out radio signals to terminal
-    //      Serial.print(values[0]);
-    //  Serial.print(" - ");
-    //  Serial.print(values[1]);
-    //  Serial.print(" - ");
-    //  Serial.print(values[2]);
-    //  Serial.print(" - ");
-    //  Serial.print(values[3]);
-    //  Serial.print(" - ");
-    //  Serial.println(values[4]);
 
   // If the channel 5 switch is activated
   // the robot arm is being robot arm
@@ -84,35 +83,68 @@ void loop() {
 
 // Robot Arm functionality
 void controlArm(int* values) {
-  // If the channel 2 joystick is moved backwards
-  // move the servo motor.
-  if (values[1] < 1700) {
-    position1 += 5;
-
-    // Servo end point reached.
-    if (position1 > 120) {
-      position1 = 120;
-    }
-
-    servo1.write(position1);
-    delay(15);
+  // baseServo 
+  // If the channel 2 joystick is moved move baseServo motor.
+  if (values[1] < 40) {
+    baseServoPosition += servoSpeed;
+  }
+  if (values[1] > 60) {
+    baseServoPosition -= servoSpeed;
   }
 
-  // If the channel 2 joystick is moved fowards
-  // move the servo motor.
-  if (values[1] > 1200) {
-    position1 -= 5;
-    // Servo end point reached.
-    if (position1 < 20) {
-      position1 = 20;
+      //Servo end point reached.
+    if (baseServoPosition > 120) {
+      baseServoPosition = 120;
+    }
+    if (baseServoPosition < 25) {
+      baseServoPosition = 25;
+    }
+ 
+  baseServo.write(baseServoPosition);
+
+  // elbowServo 
+  // If the channel 0 joystick is moved, move elbow servo motor.
+  if (values[0] < 40) {
+    elbowPosition += servoSpeed;
+  }
+  if (values[0] > 60) {
+    elbowPosition -= servoSpeed;
+  }
+        //Servo end point reached.
+    if (elbowPosition  > 180) {
+      elbowPosition  = 180;
+    }
+    if (elbowPosition  < 0) {
+      elbowPosition  = 0;
     }
 
-    servo1.write(position1);
-    delay(15);
+  
+  elbowServo.write(elbowPosition);
+
+    // clawServo 
+  // If the channel 2 joystick is move, move elbow servo motor.
+  if (values[3] < 40) {
+    clawPosition += servoSpeed;
   }
+  if (values[3] > 60) {
+    clawPosition -= servoSpeed;
+  }
+        //Servo end point reached.
+    if (clawPosition  > 180) {
+      clawPosition  = 180;
+    }
+    if (clawPosition  < 100) {
+      clawPosition  = 100;
+    }
+
+  
+  clawServo.write(clawPosition);
+
+  
+  
 }
 
-// TODO: Handle range of values correctly for input
+
 // Select correct values
 void controlCar(int* values) {
   int turnValue = values[0] - 50;
@@ -140,24 +172,7 @@ void controlCar(int* values) {
   rightSideSpeed = 0;
   }
 
-  // Lowers top speed  
-//     if ((90 + leftSideSpeed)>100)
-//   {
-//   leftSideSpeed = 10;
-//   }
-//       if ((90 + rightSideSpeed ) > 100)
-//   {
-//   rightSideSpeed = 10;
-//   }
-//   if ((90 + rightSideSpeed) < 80)
-//   {
-//   rightSideSpeed = -10;
-//   }
-//     if ((90 + leftSideSpeed) <80)
-//   {
-//   leftSideSpeed = -10;
-//   }
-// Serial.println(leftSideSpeed);
+
 
   // Write the speed values to the ESCs. 90 is added as this is the 'center'
   // point
