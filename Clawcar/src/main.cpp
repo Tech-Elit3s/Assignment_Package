@@ -4,8 +4,8 @@
 #define ESC_ARM_SIGNAL 1000
 #define ESC_ARM_TIME 2000
 
-const double driveSpeed = 1;
-const double turnSpeed = 1;
+const double driveSpeed = 0.2;
+const double turnSpeed = 0.2;
 
 int position1;
 Servo servo1;
@@ -130,25 +130,42 @@ void controlCar(int* values) {
   rightSideSpeed -= turnValue * turnSpeed;
 
   // Increases controller joystick dead zone (neutral point) 
-  // to allow for receiver value variance 
-  if ((90 + leftSideSpeed)<100 && (90 + leftSideSpeed)>80)
+  // to allow for receiver value variance or flicker
+  if ((90 + leftSideSpeed)<98 && (90 + leftSideSpeed)>82)
   {
   leftSideSpeed = 0;
   }
-  if ((90 + rightSideSpeed)<100 && (90 + rightSideSpeed)>80)
+  if ((90 + rightSideSpeed)<98 && (90 + rightSideSpeed)>82)
   {
   rightSideSpeed = 0;
   }
 
+  // Lowers top speed  
+//     if ((90 + leftSideSpeed)>100)
+//   {
+//   leftSideSpeed = 10;
+//   }
+//       if ((90 + rightSideSpeed ) > 100)
+//   {
+//   rightSideSpeed = 10;
+//   }
+//   if ((90 + rightSideSpeed) < 80)
+//   {
+//   rightSideSpeed = -10;
+//   }
+//     if ((90 + leftSideSpeed) <80)
+//   {
+//   leftSideSpeed = -10;
+//   }
+// Serial.println(leftSideSpeed);
+
   // Write the speed values to the ESCs. 90 is added as this is the 'center'
   // point
-
-Serial.println(90 + leftSideSpeed);
-
   topLeftESC.write(90 + leftSideSpeed);
   bottomLeftESC.write(90 + leftSideSpeed);
   topRightESC.write(90 + rightSideSpeed);
   bottomRightESC.write(90 + rightSideSpeed);
+ 
 }
 
 int* readValues() {
